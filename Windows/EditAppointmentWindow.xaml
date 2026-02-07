@@ -1,0 +1,65 @@
+﻿<Window x:Class="WpfPlannerApp.Windows.EditAppointmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактировать выезд"
+        Width="460"
+        Height="580"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Background="{StaticResource BgBrush}">
+        <Border Margin="15" Background="White" CornerRadius="10" Padding="20">
+            <StackPanel>
+
+                <TextBlock Text="Редактировать выезд"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       Margin="0,0,0,15"/>
+
+                <!-- Дата -->
+                <TextBlock Text="Дата" Margin="0,0,0,5"/>
+                <DatePicker x:Name="DateBox" Height="35" Margin="0,0,0,10"/>
+                
+                <!-- Время -->
+                <TextBlock Text="Время (ЧЧ:мм)" Margin="0,0,0,5"/>
+                <TextBox x:Name="TimeBox"
+         Height="36"
+         PreviewTextInput="TimeBox_PreviewTextInput"
+         TextChanged="TimeBox_TextChanged"/>
+
+
+                <!-- Адрес -->
+                <TextBlock Text="Адрес" Margin="0,0,0,5"/>
+                <TextBox x:Name="AddressBox" Height="35" Margin="0,0,0,10"/>
+                
+                <!-- Статус -->
+                <TextBlock Text="Статус" Margin="0,0,0,5"/>
+                <ComboBox x:Name="StatusBox" Height="35" Margin="0,0,0,15">
+                    <ComboBoxItem Content="🟣 Запланирован"/>
+                    <ComboBoxItem Content="🟠 В работе"/>
+                    <ComboBoxItem Content="✅ Завершён"/>
+                    <ComboBoxItem Content="❌ Отменён"/>
+                </ComboBox>
+                
+                <!-- Примечание -->
+                <TextBlock Text="Примечание" Margin="0,0,0,5"/>
+                <TextBox x:Name="NotesBox" Height="80" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                
+                <!-- Кнопки -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Сохранить"
+                        Width="100"
+                        Background="{StaticResource PrimaryBrush}"
+                        Click="Save_Click"/>
+
+                    <Button Content="Удалить"
+                        Width="100"
+                        Background="{StaticResource AccentBrush}"
+                        Click="Delete_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
