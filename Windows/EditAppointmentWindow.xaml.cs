@@ -138,8 +138,6 @@ namespace WpfPlannerApp.Windows
             }
         }
 
-        // ===== МАСКА ДЛЯ ВРЕМЕНИ =====
-
         private void TimeBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = !Regex.IsMatch(e.Text, @"[0-9:]");
