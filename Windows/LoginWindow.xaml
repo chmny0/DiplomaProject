@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Вход"
         Width="420"
-        Height="400"
+        Height="470"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
 
-    <Grid Background="{StaticResource BgBrush}">
+    <Grid>
+
         <Border Width="320"
                 Padding="22"
-                Background="White"
                 CornerRadius="16"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
@@ -24,17 +24,32 @@
                            HorizontalAlignment="Center"
                            Margin="0,0,0,18"/>
 
-                <TextBlock Text="Логин" FontSize="13"/>
-                <TextBox x:Name="LoginBox" Height="36" Margin="0,0,0,12"/>
+                <TextBlock Text="Логин"
+                           FontSize="13"/>
 
-                <TextBlock Text="Пароль" FontSize="13"/>
-                <PasswordBox x:Name="PasswordBox" Height="36" Margin="0,0,0,20"/>
+                <TextBox x:Name="LoginBox"
+                         Margin="0,0,0,12"/>
+
+                <TextBlock Text="Пароль"
+                           FontSize="13"/>
+
+                <PasswordBox x:Name="PasswordBox"
+                             Height="36"
+                             Margin="0,0,0,20"/>
 
                 <Button Content="Войти"
-                        Height="38"
-                        Background="{StaticResource AccentBrush}"
+                        Style="{StaticResource AccentButton}"
                         Click="Login_Click"/>
+
+                <Button Content="📝 Подать заявку"
+                        Style="{StaticResource PrimaryButton}"
+                        Margin="0,10,0,0"
+                        Click="CreateRequest_Click"/>
+
             </StackPanel>
+
         </Border>
+
     </Grid>
+
 </Window>

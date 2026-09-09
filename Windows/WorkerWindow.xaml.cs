@@ -1,14 +1,14 @@
-﻿using Npgsql;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using WpfPlannerApp.Services;
+using WpfPlannerApp.Models;
 
 namespace WpfPlannerApp.Windows
 {
     public partial class WorkerWindow : Window
     {
         private readonly int _userId;
-        private readonly string _conn =
-            "Host=localhost;Port=5432;Database=planner_db;Username=postgres;Password=1234";
 
         public WorkerWindow(int userId, string name)
         {
@@ -22,46 +22,67 @@ namespace WpfPlannerApp.Windows
         {
             var list = new ObservableCollection<WorkerAppointment>();
 
-            using var conn = new NpgsqlConnection(_conn);
-            conn.Open();
-
-            var sql = @"
-                SELECT a.appointment_date, a.appointment_time,
-                       a.address, wt.type_name, a.status
+            var rows = Db.Query(@"
+                SELECT 
+                    a.appointment_date,
+                    a.appointment_time,
+                    a.address,
+                    wt.type_name,
+                    aps.status_name          
                 FROM appointments a
                 JOIN appointment_workers aw ON aw.appointment_id = a.appointment_id
-                JOIN workers w ON w.worker_id = aw.worker_id
-                JOIN work_types wt ON wt.type_id = a.work_type_id
-                WHERE w.user_id = @u
+                LEFT JOIN work_types wt ON wt.type_id = a.work_type_id
+                LEFT JOIN appointment_statuses aps ON aps.status_id = a.status_id 
+                WHERE aw.user_id = @u
                 ORDER BY a.appointment_date, a.appointment_time
-            ";
+            ", new() { ["u"] = _userId });
 
-            using var cmd = new NpgsqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("u", _userId);
-
-            using var r = cmd.ExecuteReader();
-            while (r.Read())
+            foreach (var r in rows)
             {
+                string dateStr = r["appointment_date"] switch
+                {
+                    DateTime dt => dt.ToString("dd.MM.yyyy"),
+                    DateOnly d => d.ToString("dd.MM.yyyy"),
+                    _ => r["appointment_date"]?.ToString() ?? ""
+                };
+
+                string timeStr = r["appointment_time"] switch
+                {
+                    TimeSpan ts => ts.ToString(@"hh\:mm"),
+                    DateTime dt => dt.ToString("HH:mm"),
+                    _ => r["appointment_time"]?.ToString() ?? ""
+                };
+
                 list.Add(new WorkerAppointment
                 {
-                    Date = r.GetDateTime(0).ToString("dd.MM.yyyy"),
-                    Time = r.GetTimeSpan(1).ToString(@"hh\:mm"),
-                    Address = r.GetString(2),
-                    WorkType = r.GetString(3),
-                    Status = r.GetString(4)
+                    Date = dateStr,
+                    Time = timeStr,
+                    Address = r["address"]?.ToString() ?? "",
+                    WorkType = r["type_name"]?.ToString() ?? "—",
+                    Status = MapStatus(r["status_name"]?.ToString())
                 });
             }
 
             AppointmentsGrid.ItemsSource = list;
         }
-    }
 
-    public class WorkerAppointment
-    {
-        public string Date { get; set; }
-        public string Time { get; set; }
-        public string Address { get; set; }
-        public string WorkType { get; set; }
-        public string Status { get; set; }
+        private string MapStatus(string? status)
+        {
+            return status switch
+            {
+                "scheduled" => "Запланирован",
+                "in_progress" => "В работе",
+                "completed" => "Завершён",
+                "cancelled" => "Отменён",
+                _ => status ?? ""
+            };
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Hide();
+        }
     }
 }

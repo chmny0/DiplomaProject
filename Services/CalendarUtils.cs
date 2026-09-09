@@ -11,7 +11,6 @@ namespace WpfPlannerApp.Services
 
             var first = new DateTime(month.Year, month.Month, 1);
 
-            // Понедельник = 0
             int shift = ((int)first.DayOfWeek + 6) % 7;
 
             var start = first.AddDays(-shift);

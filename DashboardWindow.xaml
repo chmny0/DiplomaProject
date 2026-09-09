@@ -1,0 +1,118 @@
+﻿<Window x:Class="WpfPlannerApp.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Планер"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="1100"
+        MinHeight="700"
+        Width="1200"
+        Height="750">
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#EDE7F6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ActiveMenuButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource MenuButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Background="{StaticResource SurfaceBrush}"
+                Padding="20,25">
+            <StackPanel>
+                <TextBlock Text="Планер заявок"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource PrimaryBrush}"
+                           Margin="0,0,0,8"/>
+
+                <TextBlock x:Name="UserNameText"
+                           FontSize="14"
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           Margin="0,0,0,20"
+                           TextWrapping="Wrap"/>
+
+                <Border Height="1"
+                        Background="{StaticResource BorderBrush}"
+                        Margin="0,0,0,20"/>
+
+                <Button x:Name="BtnRequests"
+                        Content="📋 Заявки"
+                        Style="{StaticResource ActiveMenuButtonStyle}"
+                        Click="Menu_Click"/>
+
+                <Button x:Name="BtnCalendar"
+                        Content="📅 Календарь"
+                        Style="{StaticResource MenuButtonStyle}"
+                        Click="Menu_Click"/>
+
+                <Button x:Name="BtnWorkers"
+                        Content="👥 Сотрудники"
+                        Style="{StaticResource MenuButtonStyle}"
+                        Click="Menu_Click"/>
+
+                <Button x:Name="BtnServices"
+                        Content="🔧 Услуги"
+                        Style="{StaticResource MenuButtonStyle}"
+                        Click="Menu_Click"/>
+
+                <Button x:Name="BtnJournals"
+                        Content="📊 Журналы"
+                        Style="{StaticResource MenuButtonStyle}"
+                        Click="Menu_Click"/>
+
+                <Border Height="1"
+                        Background="{StaticResource BorderBrush}"
+                        Margin="0,20,0,20"/>
+
+                <Button Content="🚪 Выйти"
+                        Style="{StaticResource MenuButtonStyle}"
+                        Click="Logout_Click"
+                        Foreground="#C62828"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1"
+                Style="{StaticResource Card}">
+            <ContentControl x:Name="ContentArea"/>
+        </Border>
+    </Grid>
+</Window>

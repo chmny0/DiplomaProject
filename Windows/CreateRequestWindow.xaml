@@ -1,0 +1,129 @@
+﻿<Window x:Class="WpfPlannerApp.Windows.CreateRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Оставить заявку"
+        Width="520"
+        Height="750"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Border Style="{StaticResource Card}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+
+                    <TextBlock Text="Подать заявку"
+                               FontSize="24"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource PrimaryBrush}"
+                               Margin="0,0,0,15"/>
+
+                    <TabControl x:Name="ClientTypeTabs"
+                                SelectionChanged="ClientTypeTab_SelectionChanged"
+                                Margin="0,0,0,15">
+
+                        <TabItem Header="🏠 Физическое лицо">
+                            <StackPanel Margin="10">
+
+                                <TextBlock Text="Фамилия *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndLastNameBox"/>
+
+                                <TextBlock Text="Имя *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndFirstNameBox"/>
+
+                                <TextBlock Text="Отчество" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndMiddleNameBox"/>
+
+                                <TextBlock Text="Телефон *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndPhoneBox"/>
+
+                                <TextBlock Text="Email" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndEmailBox"/>
+
+                                <TextBlock Text="Паспорт (серия номер)" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndPassportBox"/>
+
+                                <TextBlock Text="Адрес *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="IndAddressBox"/>
+
+                            </StackPanel>
+                        </TabItem>
+
+                        <TabItem Header="🏢 Юридическое лицо">
+                            <StackPanel Margin="10">
+
+                                <TextBlock Text="Название компании *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegCompanyBox"/>
+
+                                <TextBlock Text="ИНН * (10 цифр)" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegInnBox"/>
+
+                                <TextBlock Text="КПП (9 цифр)" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegKppBox"/>
+
+                                <TextBlock Text="Юридический адрес" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegLegalAddressBox"/>
+
+                                <TextBlock Text="ФИО директора" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegDirectorBox"/>
+
+                                <TextBlock Text="Контактное лицо"
+                                           FontWeight="SemiBold"
+                                           Margin="0,15,0,5"
+                                           Foreground="{StaticResource PrimaryBrush}"/>
+
+                                <TextBlock Text="Фамилия *" Margin="0,5,0,2"/>
+                                <TextBox x:Name="LegLastNameBox"/>
+
+                                <TextBlock Text="Имя *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegFirstNameBox"/>
+
+                                <TextBlock Text="Отчество" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegMiddleNameBox"/>
+
+                                <TextBlock Text="Телефон *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegPhoneBox"/>
+
+                                <TextBlock Text="Email" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegEmailBox"/>
+
+                                <TextBlock Text="Адрес для выезда *" Margin="0,8,0,2"/>
+                                <TextBox x:Name="LegAddressBox"/>
+
+                                <TextBlock Text="⚠ После отправки с вами свяжется менеджер для оформления договора."
+                                           Foreground="#E65100"
+                                           FontSize="12"
+                                           Margin="0,10,0,0"
+                                           TextWrapping="Wrap"/>
+
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+
+                    <TextBlock Text="Тип услуги *" Margin="0,5,0,2"/>
+                    <ComboBox x:Name="WorkTypeBox"
+                              DisplayMemberPath="type_name"
+                              SelectedValuePath="type_id"/>
+
+                    <TextBlock Text="Предпочтительная дата *" Margin="0,10,0,2"/>
+                    <DatePicker x:Name="DateBox"/>
+
+                    <TextBlock Text="Время (ЧЧ:мм)" Margin="0,10,0,2"/>
+                    <TextBox x:Name="TimeBox" Text="10:00"/>
+
+                    <TextBlock Text="Описание" Margin="0,10,0,2"/>
+                    <TextBox x:Name="DescriptionBox"
+                             AcceptsReturn="True"
+                             Height="80"
+                             TextWrapping="Wrap"/>
+
+                    <Button Content="📩 Отправить заявку"
+                            Style="{StaticResource AccentButton}"
+                            Margin="0,20,0,0"
+                            Click="Save_Click"/>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

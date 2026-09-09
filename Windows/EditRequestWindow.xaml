@@ -1,0 +1,98 @@
+﻿<Window x:Class="WpfPlannerApp.Windows.EditRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/icon.ico"
+        Title="Заявка"
+        Width="500"
+        Height="600"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Border Style="{StaticResource Card}" Margin="20">
+            <ScrollViewer>
+                <StackPanel>
+
+                    <TextBlock Text="Карточка заявки"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource PrimaryBrush}"/>
+
+                    <TextBlock Text="Клиент"
+                               Margin="0,15,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="ClientText"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Телефон"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="PhoneText"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Адрес"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="AddressText"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Тип услуги"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="WorkTypeText"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Дата заявки"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="DateText"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Предпочтительная дата"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="PrefDateText"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Предпочтительное время"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBlock x:Name="PrefTimeText"
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="Описание"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <TextBox x:Name="DescriptionBox"
+                             Height="100"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Статус"
+                               Margin="0,10,0,5"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                    <ComboBox x:Name="StatusBox"
+                              DisplayMemberPath="name"
+                              SelectedValuePath="id"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,20,0,0">
+
+                        <Button Content="Сохранить"
+                                Width="120"
+                                Margin="0,0,10,0"
+                                Style="{StaticResource PrimaryButton}"
+                                Click="Save_Click"/>
+
+                        <Button Content="Создать выезд"
+                                Width="150"
+                                Style="{StaticResource AccentButton}"
+                                Click="CreateAppointment_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>
